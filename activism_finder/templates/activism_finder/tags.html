@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tag List</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'activism_finder/bootstrap.min.css' %}">
+    <script src="{% static 'activism_finder/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'activism_finder/bootstrap.bundle.min.js' %}"></script>
+</head>
+<body>
+<nav class="navbar navbar-expand-sm navbar-light bg-light">
+    <span class="navbar-brand">Activism Finder</span>
+    <div class="nav-item">
+        <a class="nav-link" href="/">Home</a>
+    </div>
+    <div class="nav-item">
+        <a class="nav-link" href="/list">All Activism Organizations</a>
+    </div>
+    <div class="nav-item active">
+        <a class="nav-link" href="/tags">Tags <span class="sr-only">(current)</span></a>
+    </div>
+</nav>
+<div class="content" style="padding-top: 2%">
+    <h2 class="text-center">Tag List</h2>
+    <div style="padding: 1%;">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th># of Organizations</th>
+            </tr>
+            </thead>
+            <tbody id="search-body">
+            {% for word, num_sources, word_url in keywords %}
+                <tr>
+                    <td><a href="/tag/{{ word_url }}" style="text-transform: capitalize">{{ word }}</a></td>
+                    <td>{{ num_sources }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

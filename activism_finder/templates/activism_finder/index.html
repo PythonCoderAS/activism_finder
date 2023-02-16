@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Activism Finder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'activism_finder/bootstrap.min.css' %}">
+    <script src="{% static 'activism_finder/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'activism_finder/bootstrap.bundle.min.js' %}"></script>
+    <script>
+        function search() {
+            let value = document.getElementById("searchbar").value;
+            $.getJSON("/search", {"term": value}, (data) => {
+                let searchbody = document.getElementById("search-body");
+                searchbody.innerHTML = "";
+                if (data.data.length > 0) {
+                    for (let x = 0; x < data.data.length; x++) {
+                        item = data.data[x];
+                        let elm = document.createElement("tr");
+                        let first = document.createElement("td");
+                        let link1 = document.createElement("a");
+                        link1.href = "/" + item.code;
+                        link1.innerText = item.name
+                        first.appendChild(link1)
+                        let second = document.createElement("td");
+                        second.innerText = item.description;
+                        let third = document.createElement("td");
+                        let link2 = document.createElement("a");
+                        link2.href = item.website;
+                        link2.target = "_blank";
+                        link2.innerText = item.website;
+                        third.appendChild(link2);
+                        elm.appendChild(first);
+                        elm.appendChild(second);
+                        elm.appendChild(third);
+                        searchbody.appendChild(elm);
+                    }
+                } else {
+                    searchbody.innerHTML = '<tr><td colspan="3" class="text-center font-weight-bold">No Results Found</td></tr>'
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+<nav class="navbar navbar-expand-sm navbar-light bg-light">
+    <span class="navbar-brand">Activism Finder</span>
+    <div class="nav-item active">
+        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+    </div>
+    <div class="nav-item">
+        <a class="nav-link" href="/list">All Activism Organizations</a>
+    </div>
+    <div class="nav-item">
+        <a class="nav-link" href="/tags">Tags</a>
+    </div>
+</nav>
+<div class="content" style="padding-top: 2%">
+    <h2 class="text-center">Activism Finder</h2>
+    <p class="text-center">Find activist groups for the movements you want. Start typing in the search below to find your groups today.</p>
+    <div style="padding: 1%;">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Query" aria-label="Query" id="searchbar" onkeyup="search()">
+        </div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Website</th>
+            </tr>
+            </thead>
+            <tbody id="search-body">
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

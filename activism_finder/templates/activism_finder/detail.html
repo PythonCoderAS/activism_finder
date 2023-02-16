@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ name }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'activism_finder/bootstrap.min.css' %}">
+    <script src="{% static 'activism_finder/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'activism_finder/bootstrap.bundle.min.js' %}"></script>
+    <style>
+        #taglist .tag {
+            text-transform: uppercase;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-sm navbar-light bg-light">
+    <span class="navbar-brand">Activism Finder</span>
+    <div class="nav-item">
+        <a class="nav-link" href="/">Home</a>
+    </div>
+    <div class="nav-item">
+        <a class="nav-link" href="/list">All Activism Organizations</a>
+    </div>
+    <div class="nav-item active">
+        <a class="nav-link" href="/tags">Tags <span class="sr-only">(current)</span></a>
+    </div>
+</nav>
+<div class="content" style="padding: 1%">
+    <h2 class="text-center">{{ name }}</h2>
+    <p>Official Website: <a href="{{ website }}">{{ website }}</a></p>
+    <blockquote>
+        {{ description }}
+    </blockquote>
+    <div style="display: flex" id="taglist"><span class="align-middle">Tags: </span>{% for tag in tags %}
+        <a class="tag btn btn-outline-dark" href="/tag/{{ tag.word_url }}">{{ tag.word }}</a>
+    {% endfor %}
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ name }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'activism_finder/bootstrap.min.css' %}">
+    <script src="{% static 'activism_finder/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'activism_finder/bootstrap.bundle.min.js' %}"></script>
+</head>
+<body>
+<nav class="navbar navbar-expand-sm navbar-light bg-light">
+    <span class="navbar-brand">Activism Finder</span>
+    <div class="nav-item">
+        <a class="nav-link" href="/">Home</a>
+    </div>
+    <div class="nav-item">
+        <a class="nav-link" href="/list">All Activism Organizations</a>
+    </div>
+    <div class="nav-item">
+        <a class="nav-link" href="/tags">Tags</a>
+    </div>
+</nav>
+<div class="content" style="padding-top: 2%">
+    <h2 class="text-center" style="text-transform: capitalize">Tag: {{ name }}</h2>
+    <div style="padding: 1%;">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Website</th>
+            </tr>
+            </thead>
+            <tbody id="search-body">
+            {% for source in sources %}
+                <tr>
+                    <td><a href="/{{ source.code }}">{{ source.name }}</a></td>
+                    <td>{{ source.description }}</td>
+                    <td><a href="{{ source.website }}">{{ source.website }}</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
